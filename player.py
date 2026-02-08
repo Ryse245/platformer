@@ -27,12 +27,20 @@ class Player(Circle):
         self.position += forward * PLAYER_SPEED * dt
 
     def jump(self):
-        #not implemented
-        print("Jump")
+        if self.canjump is True:
+            up = pygame.Vector2(0, -1)
+            self.velocity += up * PLAYER_JUMP
+            self.canjump = False
+            print("Jump")       
 
-    def applygravity(self, dt):
-        if (self.position.y + self.radius) < SCREEN_HEIGHT:
+    def applygravity(self):
+        if (self.position.y + self.radius) < SCREEN_HEIGHT - RADIUS_OFFSET:
             down = pygame.Vector2(0, 1)
-            self.position += down * GRAVITY * dt
+            self.velocity += down * GRAVITY
         else:
+            if self.canjump is False:
+                self.velocity = pygame.Vector2(0, 0)
             self.canjump = True
+
+    def applyvelocity(self, dt):
+        self.position += self.velocity * dt

@@ -9,6 +9,7 @@ class Circle(pygame.sprite.Sprite):
         
         self.position = pygame.Vector2(x, y)
         self.radius = rad
+        self.velocity = pygame.Vector2(0, 0)
     
     def draw(self, screen):
         pass
@@ -16,7 +17,7 @@ class Circle(pygame.sprite.Sprite):
     def update(self, dt):
         pass
 
-    def applygravity(self, dt):
+    def applygravity(self):
         pass
 
     def check_collision(self, other):

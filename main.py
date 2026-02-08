@@ -8,7 +8,8 @@ def main():
     updateable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     gravgroup = pygame.sprite.Group()
-    Player.containers = (updateable, drawable, gravgroup)
+    velgroup = pygame.sprite.Group()
+    Player.containers = (updateable, drawable, gravgroup, velgroup)
 
     clock = pygame.time.Clock()
     dt = 0
@@ -21,8 +22,13 @@ def main():
             if event.type == pygame.QUIT:
                 return
         updateable.update(dt)
+
+        for velitem in velgroup:
+            velitem.applyvelocity(dt)
+            
         for gravitem in gravgroup:
-            gravitem.applygravity(dt)
+            gravitem.applygravity()
+        
 
         surface.fill((0,0,0))
         for drawing in drawable:
