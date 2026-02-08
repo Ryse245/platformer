@@ -1,6 +1,8 @@
 import pygame
+import math
 from circle import Circle
 from constants import *
+from helpers import clamp
 
 class Player(Circle):
     def __init__(self, x, y):
@@ -25,6 +27,7 @@ class Player(Circle):
     def move(self, dt):
         forward = pygame.Vector2(1, 0)
         self.position += forward * PLAYER_SPEED * dt
+        self.position.x = clamp(self.position.x, RADIUS_OFFSET, SCREEN_WIDTH - RADIUS_OFFSET)
 
     def jump(self):
         if self.canjump is True:
