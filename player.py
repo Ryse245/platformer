@@ -1,5 +1,4 @@
 import pygame
-import math
 from circle import Circle
 from constants import *
 from helpers import clamp
@@ -10,7 +9,7 @@ class Player(Circle):
         self.canjump = False
 
     def draw(self, screen):
-        pygame.draw.circle(screen, "white", self.position, self.radius, 2)
+        pygame.draw.circle(screen, PLAYER_COLOR, self.position, self.radius, 2)
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -33,8 +32,7 @@ class Player(Circle):
         if self.canjump is True:
             up = pygame.Vector2(0, -1)
             self.velocity += up * PLAYER_JUMP
-            self.canjump = False
-            print("Jump")       
+            self.canjump = False    
 
     def applygravity(self):
         if (self.position.y + self.radius) < SCREEN_HEIGHT - RADIUS_OFFSET:
