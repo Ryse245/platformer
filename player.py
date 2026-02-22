@@ -9,7 +9,7 @@ class Player(Circle):
         self.canjump = False
 
     def draw(self, screen):
-        pygame.draw.circle(screen, PLAYER_COLOR, self.position, self.radius, 2)
+        pygame.draw.circle(screen, PLAYER_COLOR, self.position, self.radius)
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -22,6 +22,7 @@ class Player(Circle):
         if keys[pygame.K_SPACE] or keys[pygame.K_w] or keys[pygame.K_UP]:
             #jump
             self.jump()
+        self.position += self.velocity * dt
 
     def move(self, dt):
         forward = pygame.Vector2(1, 0)

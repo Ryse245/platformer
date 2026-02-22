@@ -11,27 +11,30 @@ def main():
     updateable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     gravgroup = pygame.sprite.Group()
-    velgroup = pygame.sprite.Group()
     projgroup = pygame.sprite.Group()
-    Player.containers = (updateable, drawable, gravgroup, velgroup)
+    Player.containers = (updateable, drawable, gravgroup)
     Projectile.containers = (updateable, drawable, projgroup)
     ProjectileSpawn.containers = (updateable)
 
     clock = pygame.time.Clock()
     dt = 0
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    spawn = ProjectileSpawn(player)
+    spawn_one = ProjectileSpawn(player, PROJ_COLOR_ONE, True)
+    spawn_two = ProjectileSpawn(player, PROJ_COLOR_TWO, False)
+    proj_two_timer = 0
 
     print("Starting game!")
 
     while True:
+        if spawn_two.enabled is False:
+            proj_two_timer += dt
+            if proj_two_timer > PROJ_LIFETIME * 2:
+                spawn_two.enabled = True
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         updateable.update(dt)
-
-        for velitem in velgroup:
-            velitem.applyvelocity(dt)
             
         for gravitem in gravgroup:
             gravitem.applygravity()
